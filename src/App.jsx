@@ -24,7 +24,7 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // 실시간 상담 접수 목록 (더미 데이터)
+  // 실시간 상담 접수 목록 (더미임 변경해야됨!!!!!!!!!!!!!!!)
   const recentConsults = [
     { name: '김*수', type: '인터넷 가입', status: '상담완료', time: '방금 전' },
     { name: '이*영', type: '요금제 변경', status: '접수완료', time: '2분 전' },
@@ -104,7 +104,7 @@ function App() {
   return (
     <div className="min-h-screen font-sans text-gray-800 overflow-x-hidden bg-gradient-to-b from-sky-50 to-white">
       
-      {/* 플로팅 상담 신청 버튼 (우측 고정) */}
+      {/* 플로팅버튼 (우측 고정) */}
       <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-2">
         <button
           onClick={() => setShowModal(true)}
@@ -334,7 +334,7 @@ function App() {
                 </p>
               </div>
 
-              {/* 우측 이미지 영역 - 제품 이미지 또는 상담원 이미지 */}
+              {/* 우측 이미지 영역  */}
               <div className="relative">
                 {/* 여기에 PNG/GIF 이미지를 넣을 공간 */}
                 <div className="relative w-80 lg:w-[450px] h-80 lg:h-[400px] flex items-center justify-center">
@@ -376,7 +376,7 @@ function App() {
                 
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center">
-                    {/* 상담원 아이콘 자리 - 여기에 3D 캐릭터 이미지를 넣을 수 있음 */}
+                    {/* 상담원 아이콘 자리 */}
                     <span className="text-5xl">👩‍💼</span>
                   </div>
                   <div>
@@ -589,7 +589,7 @@ function App() {
                 <p className="text-gray-600">상담부터 설치, 현금 입금까지!</p>
               </div>
 
-              {/* 스텝 진행 */}
+              {/* 스텝 */}
               <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-0">
                 
                 {/* Step 1 */}
@@ -680,7 +680,7 @@ function App() {
           </div>
         </section>
 
-        {/* 핵심 혜택 (기존 유지 + 스타일 개선) */}
+        {/* 핵심 혜택*/}
         <section className="py-12 lg:py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
@@ -751,7 +751,7 @@ function App() {
         </div>
       </footer>
 
-      {/* 추가 CSS 애니메이션을 위한 스타일 */}
+      {/* 추가 CSS gif스타일 */}
       <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
