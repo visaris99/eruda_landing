@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import logoImg from './assets/logo.png';
 import modelImg from './assets/model_fix.png';
-import bgImg from './assets/bg.png';
 import './App.css';
 
 function App() {
@@ -24,7 +24,7 @@ function App() {
     return () => clearInterval(interval);
   }, []);
 
-  // 실시간 상담 접수 목록 (더미임 변경해야됨!!!!!!!!!!!!!!!)
+  // 실시간 상담 접수 목록 (더미 데이터)
   const recentConsults = [
     { name: '김*수', type: '인터넷 가입', status: '상담완료', time: '방금 전' },
     { name: '이*영', type: '요금제 변경', status: '접수완료', time: '2분 전' },
@@ -33,8 +33,35 @@ function App() {
     { name: '정*아', type: '요금제 변경', status: '상담완료', time: '12분 전' },
   ];
 
+  // 전화번호 유효성 검사 함수
+  const validatePhone = (phone) => {
+    // 숫자만 추출
+    const numbers = phone.replace(/[^0-9]/g, '');
+    // 11자리인지 확인 (010XXXXXXXX)
+    return numbers.length === 11 && numbers.startsWith('010');
+  };
+
+  // 전화번호 포맷팅 함수 (자동 하이픈 추가)
+  const formatPhone = (value) => {
+    const numbers = value.replace(/[^0-9]/g, '');
+    if (numbers.length <= 3) return numbers;
+    if (numbers.length <= 7) return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+    return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    
+    // 전화번호 입력 시 포맷팅 적용
+    if (name === 'phone') {
+      const formatted = formatPhone(value);
+      setFormData(prev => ({
+        ...prev,
+        [name]: formatted
+      }));
+      return;
+    }
+    
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
@@ -46,8 +73,16 @@ function App() {
       alert("개인정보 수집 및 이용에 동의해주세요.");
       return;
     }
-    if(!formData.name || !formData.phone) {
-      alert("필수 항목을 입력해주세요.");
+    if(!formData.name) {
+      alert("성함을 입력해주세요.");
+      return;
+    }
+    if(!formData.phone) {
+      alert("연락처를 입력해주세요.");
+      return;
+    }
+    if(!validatePhone(formData.phone)) {
+      alert("올바른 휴대폰 번호를 입력해주세요.\n(예: 010-1234-5678, 총 11자리)");
       return;
     }
 
@@ -103,34 +138,33 @@ function App() {
 
   return (
     <div className="min-h-screen font-sans text-gray-800 overflow-x-hidden bg-gradient-to-b from-sky-50 to-white">
-      
-      {/* 플로팅버튼 (우측 고정) */}
-      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-2">
+      {/* 플로팅 상담 신청 버튼 (우측 고정) */}
+      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-1 lg:gap-2">
         <button
           onClick={() => setShowModal(true)}
-          className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-4 rounded-l-2xl shadow-2xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 flex flex-col items-center gap-1 group"
+          className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-2 py-2 lg:px-4 lg:py-4 rounded-l-xl lg:rounded-l-2xl shadow-2xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 flex flex-col items-center gap-0.5 lg:gap-1 group"
         >
-          <span className="text-xs font-medium opacity-80">상담신청</span>
-          <div className="bg-white/20 rounded-lg px-3 py-2">
-            <span className="text-sm font-bold block">비밀지원금</span>
-            <span className="text-sm font-bold block">안내받기</span>
+          <span className="text-[8px] lg:text-xs font-medium opacity-80">상담신청</span>
+          <div className="bg-white/20 rounded-md lg:rounded-lg px-1.5 py-1 lg:px-3 lg:py-2">
+            <span className="text-[9px] lg:text-sm font-bold block">비밀지원금</span>
+            <span className="text-[9px] lg:text-sm font-bold block">안내받기</span>
           </div>
         </button>
         
         <a
           href="#"
-          className="bg-[#FEE500] text-[#3c1e1e] px-4 py-3 rounded-l-2xl shadow-2xl hover:bg-[#fdd835] transition-all duration-300 flex flex-col items-center gap-1"
+          className="bg-[#FEE500] text-[#3c1e1e] px-2 py-1.5 lg:px-4 lg:py-3 rounded-l-xl lg:rounded-l-2xl shadow-2xl hover:bg-[#fdd835] transition-all duration-300 flex flex-col items-center gap-0.5 lg:gap-1"
         >
-          <span className="text-xs font-medium">가입신청</span>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+          <span className="text-[8px] lg:text-xs font-medium">가입신청</span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 lg:w-5 lg:h-5">
             <path d="M12 2C6.48 2 2 5.91 2 10.73C2 13.66 3.86 16.25 6.69 17.78C6.34 18.86 5.64 21.28 5.62 21.34C5.59 21.46 5.61 21.58 5.68 21.67C5.75 21.76 5.85 21.81 5.96 21.81C6.03 21.81 6.09 21.8 6.15 21.77C7.4 21.18 10.03 19.73 11.47 18.88C11.65 18.89 11.82 18.9 12 18.9C17.52 18.9 22 14.99 22 10.17C22 5.35 17.52 1.44 12 1.44V2Z" />
           </svg>
-          <span className="text-[10px] font-bold">카톡 상담</span>
+          <span className="text-[8px] lg:text-[10px] font-bold">카톡 상담</span>
         </a>
         
-        <div className="bg-red-500 text-white px-4 py-3 rounded-l-2xl shadow-2xl">
-          <span className="text-[10px] font-medium block text-center">무료상담 대표번호</span>
-          <span className="text-base font-black block text-center">1800-0000</span>
+        <div className="bg-red-500 text-white px-2 py-1.5 lg:px-4 lg:py-3 rounded-l-xl lg:rounded-l-2xl shadow-2xl">
+          <span className="text-[7px] lg:text-[10px] font-medium block text-center">무료상담 대표번호</span>
+          <span className="text-[10px] lg:text-base font-black block text-center">1800-0000</span>
         </div>
       </div>
 
@@ -300,10 +334,10 @@ function App() {
           </div>
 
           <div className="container mx-auto px-4 relative">
-            <div className="flex flex-col lg:flex-row items-center justify-between">
+            <div className="flex flex-col lg:flex-row items-center justify-center lg:gap-8 xl:gap-16">
               
               {/* 좌측 텍스트 */}
-              <div className="text-white text-center lg:text-left mb-8 lg:mb-0 lg:max-w-xl">
+              <div className="text-white text-center lg:text-left mb-8 lg:mb-0 lg:max-w-xl lg:ml-20 xl:ml-32">
                 <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
                   <span className="text-yellow-300 text-lg">🏆</span>
                   <span className="font-bold text-sm">소비자만족도지수 1위</span>
@@ -334,7 +368,7 @@ function App() {
                 </p>
               </div>
 
-              {/* 우측 이미지 영역  */}
+              {/* 우측 이미지 영역 - 제품 이미지 또는 상담원 이미지 */}
               <div className="relative">
                 {/* 여기에 PNG/GIF 이미지를 넣을 공간 */}
                 <div className="relative w-80 lg:w-[450px] h-80 lg:h-[400px] flex items-center justify-center">
@@ -376,7 +410,7 @@ function App() {
                 
                 <div className="flex items-center gap-4 mb-6">
                   <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center">
-                    {/* 상담원 아이콘 자리 */}
+                    {/* 상담원 아이콘 자리 - 여기에 3D 캐릭터 이미지를 넣을 수 있음 */}
                     <span className="text-5xl">👩‍💼</span>
                   </div>
                   <div>
@@ -589,7 +623,7 @@ function App() {
                 <p className="text-gray-600">상담부터 설치, 현금 입금까지!</p>
               </div>
 
-              {/* 스텝 */}
+              {/* 스텝 진행 */}
               <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-0">
                 
                 {/* Step 1 */}
@@ -680,7 +714,7 @@ function App() {
           </div>
         </section>
 
-        {/* 핵심 혜택*/}
+        {/* 핵심 혜택 (기존 유지 + 스타일 개선) */}
         <section className="py-12 lg:py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="text-center mb-12">
@@ -751,7 +785,7 @@ function App() {
         </div>
       </footer>
 
-      {/* 추가 CSS gif스타일 */}
+      {/* 추가 CSS 애니메이션을 위한 스타일 */}
       <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px); }

@@ -1,0 +1,6 @@
+# 이루다컴퍼니 랜딩페이지 robots.txt
+User-agent: *
+Allow: /
+
+# 사이트맵 위치
+Sitemap: https://erudacompany-landing.web.app/sitemap.xml
