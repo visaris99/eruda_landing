@@ -152,7 +152,9 @@ function App() {
         </button>
         
         <a
-          href="#"
+          href="http://pf.kakao.com/_ZlCxon/chat"
+          target="_blank"
+          rel="noopener noreferrer"
           className="bg-[#FEE500] text-[#3c1e1e] px-2 py-1.5 lg:px-4 lg:py-3 rounded-l-xl lg:rounded-l-2xl shadow-2xl hover:bg-[#fdd835] transition-all duration-300 flex flex-col items-center gap-0.5 lg:gap-1"
         >
           <span className="text-[8px] lg:text-xs font-medium">가입신청</span>
@@ -162,10 +164,13 @@ function App() {
           <span className="text-[8px] lg:text-[10px] font-bold">카톡 상담</span>
         </a>
         
-        <div className="bg-red-500 text-white px-2 py-1.5 lg:px-4 lg:py-3 rounded-l-xl lg:rounded-l-2xl shadow-2xl">
+        <a 
+          href="tel:1800-0000"
+          className="bg-red-500 text-white px-2 py-1.5 lg:px-4 lg:py-3 rounded-l-xl lg:rounded-l-2xl shadow-2xl block"
+        >
           <span className="text-[7px] lg:text-[10px] font-medium block text-center">무료상담 대표번호</span>
-          <span className="text-[10px] lg:text-base font-black block text-center">1800-0000</span>
-        </div>
+          <span className="text-[10px] lg:text-base font-black block text-center">02-1544-8164</span>
+        </a>
       </div>
 
       {/* 상담 신청 모달 */}
@@ -308,12 +313,12 @@ function App() {
             <a href="#" className="hover:text-blue-600 transition">SK 인터넷</a>
             <a href="#" className="hover:text-blue-600 transition">LG인터넷</a>
             <a href="#" className="hover:text-blue-600 transition">LG헬로비전</a>
-            <a href="#" className="text-red-500 font-bold hover:text-red-600 transition">신청서작성</a>
+            <a href="http://pf.kakao.com/_ZlCxon/chat" className="text-red-500 font-bold hover:text-red-600 transition">신청서작성</a>
           </nav>
 
           <a href="tel:1800-0000" className="flex items-center gap-2 text-blue-600">
             <span className="text-2xl">📞</span>
-            <span className="text-xl lg:text-2xl font-black">1800-0000</span>
+            <span className="text-xl lg:text-2xl font-black">02-1544-8164</span>
           </a>
         </div>
       </header>
@@ -350,11 +355,11 @@ function App() {
                   <div className="text-7xl lg:text-[120px] font-black leading-none tracking-tight">
                     <span className="bg-gradient-to-b from-white via-blue-100 to-blue-300 bg-clip-text text-transparent drop-shadow-2xl"
                           style={{ textShadow: '4px 4px 0 rgba(0,100,200,0.3), 8px 8px 0 rgba(0,50,150,0.2)' }}>
-                      70
+                      150
                     </span>
-                    <span className="text-4xl lg:text-6xl align-top ml-2">만원</span>
+                    <span className="text-4xl lg:text-6xl ml-2 mb-1 lg:mb-3">만원</span>
                   </div>
-                  <div className="absolute -right-4 lg:-right-10 top-0 bg-gradient-to-r from-orange-400 to-red-500 text-white text-xl lg:text-3xl font-black px-4 py-2 rounded-xl rotate-12 shadow-lg">
+                  <div className="absolute right-0 lg:-right-16 top-0 lg:top-2 bg-gradient-to-r from-orange-400 to-red-500 text-white text-xl lg:text-3xl font-black px-4 py-2 rounded-xl rotate-12 shadow-lg">
                     혜택!
                   </div>
                 </div>
@@ -751,7 +756,7 @@ function App() {
         <section className="py-16 bg-gradient-to-r from-blue-600 to-blue-700 text-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl lg:text-4xl font-black mb-4">
-              지금 바로 상담받고 <span className="text-yellow-300">최대 70만원</span> 혜택 받으세요!
+              지금 바로 상담받고 <span className="text-yellow-300">최대 150만원</span> 혜택 받으세요!
             </h2>
             <p className="text-lg opacity-90 mb-8">
               365일 전문 상담원이 최적의 요금제를 안내해 드립니다
@@ -774,13 +779,13 @@ function App() {
             통신3사(SKT/KT/LG) 공식 가입대리점
           </p>
           <p className="text-sm leading-relaxed mb-1">
-            상호명: (주)이루다컴퍼니 | 대표자: 홍길동 | 사업자등록번호: 123-45-67890
+            상호명: 이루다드림 | 대표자: 이준병 | 사업자등록번호: 223-06-53776
           </p>
           <p className="text-sm leading-relaxed">
             주소: 대전광역시 서구 월평로 27
           </p>
           <p className="mt-6 opacity-60 text-sm">
-            Copyright © 2024. All rights reserved.
+            Copyright © 2026. All rights reserved.
           </p>
         </div>
       </footer>
